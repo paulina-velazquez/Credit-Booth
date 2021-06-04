@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 @Slf4j
 @Repository
-public class NewCreditApplicationArrayListRepository implements NewCreditApplicationRepositoryInterface{
+public class NewCreditApplicationArrayListRepository implements NewCreditApplicationRepositoryInterface {
 
     ArrayList<NewCreditApplicationDTO> arrayListRepository = new ArrayList<>();
 
@@ -19,8 +19,19 @@ public class NewCreditApplicationArrayListRepository implements NewCreditApplica
 
     @Override
     public NewCreditApplicationDTO find(String socialSecurity) {
+//        NewCreditApplicationDTO newCreditApplicationDTOToReturn = null;
+//        for (NewCreditApplicationDTO newCreditApplicationDTO : arrayListRepository) {
+//            if ((socialSecurity != null) && (socialSecurity.equals(newCreditApplicationDTO.getSocialSecurity()))) {
+//                newCreditApplicationDTOToReturn = newCreditApplicationDTO;
+//                break;
+//            }
+//        }
+//        return newCreditApplicationDTOToReturn;
+
+        // JAVA STREAM: (functional programming)
+        // The boolean inside .filter() should always be true in order to continue to the next function aka .findAny
         return arrayListRepository.stream()
-                .filter(dto -> socialSecurity.equals(dto.getSocialSecurity()))
+                .filter(dto -> (socialSecurity != null) && (socialSecurity.equals(dto.getSocialSecurity())))
                 .findAny()
                 .orElse(null);
     }

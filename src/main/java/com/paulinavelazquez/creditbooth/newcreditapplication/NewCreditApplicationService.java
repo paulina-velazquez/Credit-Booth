@@ -17,7 +17,6 @@ public class NewCreditApplicationService {
             this.experianCommunicator = experianCommunicator;
         }
 
-
         public void handleNewCreditApplication(NewCreditApplicationDTO newCreditApplicationDTO) {
             log.info("Handling a new credit application");
             newCreditApplicationRepository.save(newCreditApplicationDTO);
