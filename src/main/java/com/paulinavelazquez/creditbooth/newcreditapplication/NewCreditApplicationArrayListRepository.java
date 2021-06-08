@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 @Slf4j
 @Repository
-public class NewCreditApplicationArrayListRepository implements NewCreditApplicationRepositoryInterface{
+public class NewCreditApplicationArrayListRepository implements NewCreditApplicationRepositoryInterface {
 
     ArrayList<NewCreditApplicationDTO> arrayListRepository = new ArrayList<>();
 
@@ -20,7 +20,7 @@ public class NewCreditApplicationArrayListRepository implements NewCreditApplica
     @Override
     public NewCreditApplicationDTO find(String socialSecurity) {
         return arrayListRepository.stream()
-                .filter(dto -> socialSecurity.equals(dto.getSocialSecurity()))
+                .filter(dto -> (socialSecurity != null) && (socialSecurity.equals(dto.getSocialSecurity())))
                 .findAny()
                 .orElse(null);
     }
