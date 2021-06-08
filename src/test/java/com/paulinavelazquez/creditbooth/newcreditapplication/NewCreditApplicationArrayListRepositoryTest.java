@@ -1,28 +1,31 @@
 package com.paulinavelazquez.creditbooth.newcreditapplication;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
-
-public class NewCreditApplicationArrayListRepositoryTest {
+@ExtendWith(MockitoExtension.class)
+class NewCreditApplicationArrayListRepositoryTest {
 
     private final NewCreditApplicationArrayListRepository tested = new NewCreditApplicationArrayListRepository();
 
     @Test
-    public void givenCreditApplicationDTOThenSaveToRepository() {
+    void givenCreditApplicationDTOThenSaveToRepository() {
         final NewCreditApplicationDTO newCreditApplicationDTO = new NewCreditApplicationDTO();
         tested.save(newCreditApplicationDTO);
         final ArrayList<NewCreditApplicationDTO> repositoryReturned = tested.findAlL();
-        assertEquals(1, repositoryReturned.size());
-        assertTrue(repositoryReturned.contains(newCreditApplicationDTO));
+        Assertions.assertEquals(1, repositoryReturned.size());
+        Assertions.assertTrue(repositoryReturned.contains(newCreditApplicationDTO));
     }
 
     @Test
-    public void givenSocialSecurityReturnDTO() {
+    void givenSocialSecurityReturnDTO() {
         final NewCreditApplicationDTO newCreditApplicationDTO = new NewCreditApplicationDTO();
         String fullName = "Rami Del Toro";
         String socialSecurity = "123";
@@ -30,18 +33,18 @@ public class NewCreditApplicationArrayListRepositoryTest {
         newCreditApplicationDTO.setSocialSecurity(socialSecurity);
         tested.save(newCreditApplicationDTO);
         NewCreditApplicationDTO foundDTO = tested.find(socialSecurity);
-        assertSame(foundDTO, newCreditApplicationDTO);
+        Assertions.assertSame(foundDTO, newCreditApplicationDTO);
     }
 
     @Test
-    public void givenDTONotFoundReturnNull() {
+    void givenDTONotFoundReturnNull() {
         String socialSecurity = null;
         final NewCreditApplicationDTO newCreditApplicationDTOFound = tested.find(socialSecurity);
-        assertNull(newCreditApplicationDTOFound);
+        Assertions.assertNull(newCreditApplicationDTOFound);
     }
 
     @Test
-    public void givenDTONullSocialSecurityReturnNull() {
+    void givenDTONullSocialSecurityReturnNull() {
         final NewCreditApplicationDTO newCreditApplicationDTO = new NewCreditApplicationDTO();
         String fullName = "Rami Del Toro";
         String socialSecurity = null;
@@ -50,17 +53,17 @@ public class NewCreditApplicationArrayListRepositoryTest {
         tested.save(newCreditApplicationDTO);
 
         final NewCreditApplicationDTO newCreditApplicationDTOFound = tested.find(socialSecurity);
-        assertNull(newCreditApplicationDTOFound);
+        Assertions.assertNull(newCreditApplicationDTOFound);
     }
 
     @Test
-    public void findAllDTOsInRepository() {
+    void findAllDTOsInRepository() {
         NewCreditApplicationDTO newCreditApplicationDTO = new NewCreditApplicationDTO();
         for (int i = 0; i < 10; i++) {
             newCreditApplicationDTO = new NewCreditApplicationDTO();
             tested.save(newCreditApplicationDTO);
         }
         final ArrayList<NewCreditApplicationDTO> repositoryReturned = tested.findAlL();
-        assertEquals(10, repositoryReturned.size());
+        Assertions.assertEquals(10, repositoryReturned.size());
     }
 }
